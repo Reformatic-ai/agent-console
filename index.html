@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Console</title>
+<meta name="description" content="One console for every trading agent — status, dashboards, and reasoning in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234f8cff'/><text y='.9em' x='50' text-anchor='middle' font-size='62' font-family='sans-serif' font-weight='bold' fill='white'>A</text></svg>">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div class="brand-name">Agent Console</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">Overview</div>
+      <button class="nav-item" data-route="fleet"><span class="ico">▦</span> Fleet</button>
+      <button class="nav-item" data-route="thinking"><span class="ico">◈</span> Thinking
+        <span class="count" id="thinkingCount"></span>
+      </button>
+    </nav>
+
+    <div class="nav-agents">
+      <div class="nav-label">Agents</div>
+      <div id="navAgents"></div>
+      <button class="nav-item" id="addAgentNav"><span class="ico">＋</span> Add agent</button>
+    </div>
+
+    <div class="sidebar-foot">
+      <div class="stamp" id="lastRefresh">—</div>
+      <div class="foot-row">
+        <button class="mini" id="refreshBtn">Refresh</button>
+        <button class="mini" id="themeBtn">Light</button>
+      </div>
+      <button class="mini" id="exportBtn">Export registry</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="btn menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+      <div>
+        <h1 id="viewTitle">Fleet</h1>
+        <div class="sub" id="viewSub"></div>
+      </div>
+      <div class="spacer"></div>
+      <div id="topActions"></div>
+    </header>
+
+    <section class="view" id="view-fleet">
+      <div id="fleetNote"></div>
+      <div class="fleet" id="fleetGrid"></div>
+    </section>
+
+    <section class="view" id="view-thinking" hidden>
+      <div class="stream-controls" id="streamControls"></div>
+      <div class="stream" id="stream"></div>
+    </section>
+
+    <section class="view" id="view-agent" hidden>
+      <div id="agentBody"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="addModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addTitle">
+    <div class="modal-head"><h2 id="addTitle">Add an agent</h2></div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="addUrl">Dashboard URL</label>
+        <input id="addUrl" type="url" placeholder="https://connorshibley.github.io/repete4-dashboard/" autocomplete="off" spellcheck="false">
+        <div class="hint">Paste the dashboard's address. The console looks for a <code>dashboard_data.json</code> beside it and wires up status and reasoning automatically.</div>
+      </div>
+      <div class="probe" id="probeResult" hidden></div>
+      <div class="row-2">
+        <div class="field">
+          <label for="addName">Name</label>
+          <input id="addName" type="text" placeholder="Repete 4" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="addClass">Asset class</label>
+          <input id="addClass" type="text" placeholder="Commodities" autocomplete="off">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="addVenue">Venue</label>
+          <input id="addVenue" type="text" placeholder="Alpaca" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="addMode">Mode</label>
+          <select id="addMode">
+            <option value="paper">paper</option>
+            <option value="practice">practice</option>
+            <option value="live">live</option>
+            <option value="research">research</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="addCancel">Cancel</button>
+      <button class="btn btn-primary" id="addSave">Add agent</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/parse.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

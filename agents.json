@@ -1,0 +1,52 @@
+{
+  "$comment": "Seed registry for the Agent Console. Agents added through the UI live in localStorage; use 'Export registry' in the console to emit a merged copy of this file and commit it to make an addition permanent (and visible on other devices).",
+  "agents": [
+    {
+      "id": "repete",
+      "name": "Repete",
+      "tagline": "Equities momentum, judge-gated",
+      "url": "https://connorshibley.github.io/repete-dashboard/",
+      "assetClass": "US Equities",
+      "venue": "Alpaca",
+      "mode": "paper",
+      "accent": "#4f8cff",
+      "links": [
+        { "label": "Journal", "href": "journal.html" },
+        { "label": "Blog", "href": "blog.html" }
+      ]
+    },
+    {
+      "id": "repete1",
+      "name": "Repete 1",
+      "tagline": "24/7 crypto research agent",
+      "url": "https://connorshibley.github.io/repete1/",
+      "assetClass": "Crypto",
+      "venue": "Kraken",
+      "mode": "paper",
+      "accent": "#f7931a",
+      "links": []
+    },
+    {
+      "id": "repete2",
+      "name": "Repete 2",
+      "tagline": "Carry + trend, news overlay",
+      "url": "https://connorshibley.github.io/repete2-dashboard/",
+      "assetClass": "FX",
+      "venue": "OANDA v20",
+      "mode": "practice",
+      "accent": "#22c55e",
+      "links": []
+    },
+    {
+      "id": "repete3",
+      "name": "Repete 3",
+      "tagline": "Multi-agent LLM trading firm",
+      "url": "https://connorshibley.github.io/repete3-dashboard/",
+      "assetClass": "Equities research",
+      "venue": "Alpaca",
+      "mode": "paper",
+      "accent": "#a855f7",
+      "links": [{ "label": "Case files", "href": "report.html" }]
+    }
+  ]
+}
