@@ -119,6 +119,28 @@
     return out;
   };
 
+  /* ---- gross and net P&L -------------------------------------------------
+   * Unlike the other regions this one IS a contract (2026-11-03): each bot's
+   * `net_pnl` region has a root <div class="net-pnl"> carrying plain numbers in
+   * data-gross, data-costs and data-net (2 decimals, no commas), data-currency
+   * and data-since. Gross is P&L before the simulated trading costs set on the
+   * console's /trading page, net after them. Returns null when it is missing or
+   * any number does not parse.
+   */
+  AC.parseNetPnl = function (html) {
+    if (!html) return null;
+    var el = docFrom(html).querySelector('.net-pnl');
+    if (!el) return null;
+    var out = { currency: el.getAttribute('data-currency') || 'USD', since: el.getAttribute('data-since') || '' };
+    var ok = ['gross', 'costs', 'net'].every(function (k) {
+      var raw = el.getAttribute('data-' + k);
+      var x = raw == null || raw === '' ? NaN : Number(raw);
+      out[k] = x;
+      return isFinite(x);
+    });
+    return ok ? out : null;
+  };
+
   /* ---- decisions --------------------------------------------------------
    * repete / repete1 : <table id=dtable>, reasoning in td.reason
    * repete3          : <table id="dtable">, reasoning in td.reason

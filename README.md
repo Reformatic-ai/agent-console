@@ -17,6 +17,26 @@ publishing exactly as it does now; the console just reads what is already public
   colour-coded and searchable. This view exists nowhere else.
 - **Add agent** — paste a dashboard URL; the console probes it and wires up the rest.
 
+## Gross and net P&L (2026-11-03)
+
+Each fleet card shows **Gross**, **Costs** and **Net** P&L side by side, read from a
+`net_pnl` region each bot publishes in its `dashboard_data.json`. Unlike the other
+regions this one is a contract:
+
+```html
+<div class="net-pnl" data-gross="938.55" data-costs="101.00" data-net="837.55"
+     data-currency="USD" data-since="2026-07-16T19:45:06Z">…</div>
+```
+
+Gross is P&L before the simulated trading costs set on the console's `/trading` page,
+net after them; numbers are plain (2 decimals, no commas). A bot that doesn't publish
+the region yet gets a one-line note instead of numbers.
+
+The dashboards moved with their repositories to the Reformatic-ai organization on
+2026-10-22, and GitHub Pages doesn't redirect the old owner's address, so `agents.json`
+now points at `reformatic-ai.github.io`. Display names follow Peter's: Swing (Repete),
+Crypto (Repete1), Currency (Repete2), Analyst (Repete3).
+
 ## How it works
 
 Every bot already publishes `dashboard_data.json` next to its dashboard:

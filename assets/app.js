@@ -262,6 +262,33 @@
     });
   }
 
+  function netPnl(agent) {
+    var r = regions(agent.id);
+    try { return AC.parseNetPnl(r && r.net_pnl); } catch (e) { return null; }
+  }
+
+  function money(x, currency) {
+    var sym = currency === 'CAD' ? 'C$' : currency === 'USD' ? '$' : currency + ' ';
+    var s = Math.abs(x).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return (x < 0 ? '-' : x > 0 ? '+' : '') + sym + s;
+  }
+
+  /* Gross and net side by side (Peter, 2026-11-03), from the bot's net_pnl region. */
+  function netPnlRow(agent, d) {
+    var n = netPnl(agent);
+    if (!n) {
+      return d && d.ok
+        ? '<div class="netpnl muted">Gross and net P&amp;L show here once this dashboard publishes them.</div>'
+        : '';
+    }
+    var tone = function (x) { return x > 0 ? 'win' : x < 0 ? 'loss' : 'flat'; };
+    return '<div class="netpnl" title="Since ' + esc(n.since) + '. Trading costs are simulated at the rates set on the console\'s /trading page.">' +
+      '<span>Gross <b class="' + tone(n.gross) + '">' + esc(money(n.gross, n.currency)) + '</b></span>' +
+      '<span>Costs <b>' + esc(money(-n.costs, n.currency)) + '</b></span>' +
+      '<span>Net <b class="' + tone(n.net) + '">' + esc(money(n.net, n.currency)) + '</b></span>' +
+    '</div>';
+  }
+
   function kpiCell(k) {
     var short = String(k.value || '').replace(/\s*\([^)]*\)\s*$/, '');
     return '<div class="kpi"><div class="v ' + k.tone + '" title="' + esc(k.value) + '">' +
@@ -323,6 +350,7 @@
           (d && !d.ok ? 'offline' : (g ? 'published ' + AC.relTime(g) : 'never published')) +
         '</div></div>' +
         '<div class="kpis">' + kpiHtml + '</div>' +
+        netPnlRow(a, d) +
         '<div class="card-foot"><span class="lead">Last</span><span class="body">' + footText + '</span></div>' +
       '</article>';
     }).join('');
