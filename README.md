@@ -35,7 +35,7 @@ the region yet gets a one-line note instead of numbers.
 The dashboards moved with their repositories to the Reformatic-ai organization on
 2026-10-22, and GitHub Pages doesn't redirect the old owner's address, so `agents.json`
 now points at `reformatic-ai.github.io`. Display names follow Peter's: Swing (Repete),
-Crypto (Repete1), Currency (Repete2); Repete 3 keeps its name until it has a new one.
+Crypto (Repete1), Currency (Repete2), Analyst (Repete3).
 
 ## How it works
 
